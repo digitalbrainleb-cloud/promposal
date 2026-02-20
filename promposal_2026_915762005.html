@@ -1,0 +1,1165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+    <title>Mario Birthday · Champion Edition</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            background: #f0f0f0;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 12px;
+        }
+
+        .container {
+            max-width: 720px;
+            width: 100%;
+            background: white;
+            border-radius: 28px;
+            box-shadow: 0 20px 40px -12px rgba(0, 0, 0, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Racing stripe top */
+        .racing-stripe {
+            height: 6px;
+            width: 100%;
+            background: repeating-linear-gradient(90deg, #000 0px, #000 20px, #FEBB12 20px, #FEBB12 40px);
+        }
+
+        .content {
+            padding: 24px 20px 20px;
+        }
+
+        @media (max-width: 480px) {
+            .content {
+                padding: 20px 16px 16px;
+            }
+        }
+
+        /* Header */
+        .header {
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        .title-section h1 {
+            color: #000;
+            font-size: 1.8rem;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+            line-height: 1.2;
+        }
+
+        @media (max-width: 480px) {
+            .title-section h1 {
+                font-size: 1.5rem;
+            }
+        }
+
+        @media (max-width: 360px) {
+            .title-section h1 {
+                font-size: 1.3rem;
+            }
+        }
+
+        .title-section .subhead {
+            color: #666;
+            font-size: 0.9rem;
+            font-weight: 500;
+            margin-top: 4px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .badge {
+            background: #FEBB12;
+            color: #000;
+            padding: 6px 14px;
+            border-radius: 100px;
+            font-weight: 600;
+            font-size: 0.85rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            border: 2px solid #000;
+            white-space: nowrap;
+        }
+
+        @media (max-width: 480px) {
+            .badge {
+                padding: 5px 12px;
+                font-size: 0.8rem;
+            }
+        }
+
+        /* Rally stats - responsive grid */
+        .rally-stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px;
+            margin-bottom: 24px;
+        }
+
+        @media (max-width: 480px) {
+            .rally-stats {
+                gap: 8px;
+            }
+        }
+
+        .stat-item {
+            background: #f8f8f8;
+            border-radius: 18px;
+            padding: 14px 8px;
+            border: 1px solid #e0e0e0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 6px;
+            text-align: center;
+        }
+
+        @media (max-width: 480px) {
+            .stat-item {
+                padding: 10px 4px;
+            }
+        }
+
+        .stat-value {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #000;
+            line-height: 1;
+        }
+
+        @media (max-width: 480px) {
+            .stat-value {
+                font-size: 1.5rem;
+            }
+        }
+
+        @media (max-width: 360px) {
+            .stat-value {
+                font-size: 1.3rem;
+            }
+        }
+
+        .stat-label {
+            font-size: 0.75rem;
+            color: #666;
+            text-transform: uppercase;
+            letter-spacing: 0.3px;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            white-space: nowrap;
+        }
+
+        @media (max-width: 360px) {
+            .stat-label {
+                font-size: 0.7rem;
+                letter-spacing: 0;
+            }
+        }
+
+        .stat-label i {
+            color: #FEBB12;
+            font-size: 0.8rem;
+        }
+
+        /* Progress */
+        .progress-section {
+            margin-bottom: 28px;
+        }
+
+        .progress-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 8px;
+            font-weight: 600;
+            font-size: 0.85rem;
+            color: #444;
+        }
+
+        .progress-track {
+            height: 8px;
+            background: #e0e0e0;
+            border-radius: 100px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            width: 0%;
+            background: #000;
+            border-radius: 100px;
+            transition: width 0.4s ease;
+            position: relative;
+        }
+
+        .progress-fill::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 16px;
+            height: 100%;
+            background: #FEBB12;
+            border-radius: 100px;
+        }
+
+        /* Question container */
+        .question-panel {
+            background: #f8f8f8;
+            border-radius: 24px;
+            padding: 20px;
+            border: 2px solid #000;
+            margin-bottom: 24px;
+        }
+
+        @media (max-width: 480px) {
+            .question-panel {
+                padding: 16px;
+            }
+        }
+
+        .q-number {
+            display: inline-block;
+            background: #000;
+            color: white;
+            padding: 4px 14px;
+            border-radius: 40px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-bottom: 14px;
+            letter-spacing: 0.3px;
+        }
+
+        .q-number span {
+            color: #FEBB12;
+            margin-right: 4px;
+        }
+
+        .q-text {
+            font-size: 1.4rem;
+            font-weight: 600;
+            color: #000;
+            margin-bottom: 20px;
+            line-height: 1.3;
+            word-break: break-word;
+        }
+
+        @media (max-width: 480px) {
+            .q-text {
+                font-size: 1.3rem;
+            }
+        }
+
+        @media (max-width: 360px) {
+            .q-text {
+                font-size: 1.2rem;
+            }
+        }
+
+        /* Options grid - mobile optimized */
+        .options-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px;
+            margin-bottom: 16px;
+        }
+
+        @media (max-width: 500px) {
+            .options-grid {
+                grid-template-columns: 1fr;
+                gap: 8px;
+            }
+        }
+
+        .option-btn {
+            background: white;
+            border: 2px solid #000;
+            border-radius: 40px;
+            padding: 14px 12px;
+            font-size: 1rem;
+            font-weight: 600;
+            color: #000;
+            cursor: pointer;
+            transition: all 0.15s;
+            text-align: left;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            box-shadow: 0 3px 0 #ccc;
+            -webkit-touch-callout: none;
+            -webkit-user-select: none;
+            user-select: none;
+            touch-action: manipulation;
+            min-height: 60px;
+        }
+
+        @media (max-width: 480px) {
+            .option-btn {
+                padding: 12px 10px;
+                font-size: 0.95rem;
+                min-height: 56px;
+            }
+        }
+
+        .option-btn:active {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 0 #FEBB12;
+            border-color: #FEBB12;
+            background: #fffaf0;
+        }
+
+        .option-btn.correct {
+            background: #000;
+            color: white;
+            border-color: #FEBB12;
+            box-shadow: 0 3px 0 #FEBB12;
+        }
+
+        .option-btn.correct .option-marker {
+            background: #FEBB12;
+            color: #000;
+        }
+
+        .option-btn.wrong {
+            background: #fff0f0;
+            border-color: #ff4444;
+            color: #cc0000;
+            box-shadow: 0 3px 0 #ffaaaa;
+        }
+
+        .option-marker {
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            background: #f0f0f0;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.9rem;
+            font-weight: 700;
+            color: #666;
+            flex-shrink: 0;
+        }
+
+        @media (max-width: 480px) {
+            .option-marker {
+                width: 24px;
+                height: 24px;
+                font-size: 0.8rem;
+            }
+        }
+
+        .feedback-area {
+            min-height: 48px;
+            padding: 10px 16px;
+            <!--background: white;-->
+            border-radius: 40px;
+            border: 0px solid #000;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 500;
+            font-size: 0.95rem;
+            margin-top: 12px;
+        }
+
+        @media (max-width: 480px) {
+            .feedback-area {
+                font-size: 0.9rem;
+                padding: 8px 14px;
+            }
+        }
+
+        .wrong-counter {
+            margin-top: 6px;
+            font-size: 0.85rem;
+            color: #FEBB12;
+            font-weight: 600;
+            text-align: right;
+            min-height: 24px;
+        }
+
+        /* Final panel */
+        .final-panel {
+            display: none;
+            background: #f8f8f8;
+            border-radius: 24px;
+            padding: 28px 20px;
+            border: 3px solid #000;
+            text-align: center;
+            margin-bottom: 24px;
+        }
+
+        @media (max-width: 480px) {
+            .final-panel {
+                padding: 24px 16px;
+            }
+        }
+
+        .final-panel h2 {
+            font-size: 2.2rem;
+            font-weight: 700;
+            margin-bottom: 12px;
+            color: #000;
+            line-height: 1.2;
+        }
+
+        @media (max-width: 480px) {
+            .final-panel h2 {
+                font-size: 1.8rem;
+            }
+        }
+
+        @media (max-width: 360px) {
+            .final-panel h2 {
+                font-size: 1.5rem;
+            }
+        }
+
+        .final-panel h2 span {
+            background: #FEBB12;
+            padding: 0 8px;
+            display: inline-block;
+        }
+
+        /* Rally buttons - mobile friendly */
+        .rally-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 16px;
+            margin: 28px 0 12px;
+            flex-wrap: wrap;
+        }
+
+        @media (max-width: 480px) {
+            .rally-buttons {
+                gap: 12px;
+                flex-direction: column;
+                align-items: stretch;
+            }
+        }
+
+        .btn-primary, .btn-secondary {
+            padding: 16px 32px;
+            border-radius: 60px;
+            font-weight: 700;
+            font-size: 1.2rem;
+            cursor: pointer;
+            transition: all 0.15s;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            border: 2px solid #000;
+            -webkit-tap-highlight-color: transparent;
+            touch-action: manipulation;
+            min-width: 160px;
+        }
+
+        @media (max-width: 350px) {
+            .btn-primary, .btn-secondary {
+                width: 100%;
+                min-width: unset;
+                padding: 16px 20px;
+                font-size: 1.1rem;
+            }
+        }
+
+        .btn-primary {
+            background: #000;
+            color: white;
+        }
+
+        .btn-primary:active {
+            background: #FEBB12;
+            color: #000;
+            transform: scale(0.98);
+        }
+
+        .btn-secondary {
+            background: #FEBB12;
+            color: #000;
+        }
+
+        .btn-secondary:active {
+            background: #f0f0f0;
+            transform: scale(0.98);
+        }
+
+        /* Result panel */
+        .result-panel {
+            display: none;
+            text-align: center;
+            padding: 24px 20px;
+            background: #f8f8f8;
+            border-radius: 24px;
+            border: 2px solid #000;
+            margin-bottom: 24px;
+        }
+
+        .result-panel h3 {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 16px;
+            background: #FEBB12;
+            display: inline-block;
+            padding: 8px 28px;
+            border-radius: 60px;
+            border: 2px solid #000;
+        }
+
+        @media (max-width: 480px) {
+            .result-panel h3 {
+                font-size: 1.6rem;
+                padding: 6px 20px;
+            }
+        }
+
+        .result-panel p {
+            font-size: 1.2rem;
+            margin: 16px 0;
+            color: #000;
+            font-weight: 500;
+            word-break: break-word;
+        }
+
+        @media (max-width: 480px) {
+            .result-panel p {
+                font-size: 1.1rem;
+                margin: 12px 0;
+            }
+        }
+
+        .finish-flags {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            font-size: 2rem;
+            margin: 16px 0;
+            flex-wrap: wrap;
+        }
+
+        /* Footer - mobile responsive */
+        .footer {
+            margin-top: 28px;
+            padding-top: 16px;
+            border-top: 2px solid #e0e0e0;
+            text-align: center;
+            color: #666;
+            font-size: 0.85rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        @media (max-width: 480px) {
+            .footer {
+                flex-direction: column;
+                gap: 8px;
+                font-size: 0.8rem;
+            }
+        }
+
+        .footer-rally {
+            display: flex;
+            gap: 12px;
+            color: #FEBB12;
+            font-size: 1.1rem;
+        }
+
+        .hidden {
+            display: none !important;
+        }
+
+        .shake {
+            animation: shake 0.4s ease;
+        }
+
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-5px); }
+            75% { transform: translateX(5px); }
+        }
+
+        /* No button runaway - mobile adjusted */
+        #noBtn {
+            transition: all 0.2s ease;
+            position: relative;
+            cursor: pointer;
+        }
+
+        /* Confetti */
+        .confetti {
+            position: absolute;
+            width: 8px;
+            height: 8px;
+            background: #FEBB12;
+            opacity: 0;
+            pointer-events: none;
+            z-index: 1000;
+        }
+
+        /* Touch optimizations */
+        .option-btn, .btn-primary, .btn-secondary {
+            -webkit-touch-callout: none;
+            -webkit-user-select: none;
+            user-select: none;
+        }
+
+        /* Prevent zoom on tap for inputs */
+        select, textarea, input {
+            font-size: 16px;
+        }
+
+        /* Better touch targets */
+        .option-btn, .btn-primary, .btn-secondary {
+            min-height: 56px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="racing-stripe"></div>
+        
+        <div class="content">
+            <!-- Header -->
+            <div class="header">
+                <div class="title-section">
+                    <h1>Happy Birthday, Maghiottii</h1>
+                    <div class="subhead">
+                        <i class="fas fa-flag-checkered" style="color: #FEBB12;"></i>
+                        <span>Special Edition for a legend like you.</span>
+                        <i class="fas fa-trophy" style="color: #FEBB12;"></i>
+                    </div>
+                </div>
+                <div class="badge">
+                    <i class="fas fa-gas-pump"></i>
+                    <span>Full Gas</span>
+                </div>
+            </div>
+
+            <!-- Rally stats - responsive grid -->
+            <div class="rally-stats">
+                <div class="stat-item">
+                    <div class="stat-value" id="stageDisplay">1/5</div>
+                    <div class="stat-label"><i class="fas fa-flag"></i> stage</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-value" id="scoreDisplay">0</div>
+                    <div class="stat-label"><i class="fas fa-star"></i> wins</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-value" id="attemptsDisplay">0</div>
+                    <div class="stat-label"><i class="fas fa-redo-alt"></i> attempts</div>
+                </div>
+            </div>
+
+            <!-- Progress -->
+            <div class="progress-section">
+                <div class="progress-header">
+                    <span><i class="fas fa-flag-checkered" style="color: #FEBB12;"></i> Mario progress</span>
+                    <span id="progressPercent">0%</span>
+                </div>
+                <div class="progress-track">
+                    <div class="progress-fill" id="progressFill" style="width: 0%;"></div>
+                </div>
+            </div>
+
+            <!-- Question 1 -->
+            <div class="question-panel" id="question1">
+                <div class="q-number"><span>01</span> / 05</div>
+                <div class="q-text">If you could go anywhere for 3 hours, where would you go?</div>
+                <div class="options-grid">
+                    <div class="option-btn" data-q="1" data-correct="false"><span class="option-marker">A</span>👥 Out: hanging out with your friends</div>
+                    <div class="option-btn" data-q="1" data-correct="true"><span class="option-marker">B</span>🏎️ Go somewhere loud and fast</div>
+                    <div class="option-btn" data-q="1" data-correct="false"><span class="option-marker">C</span>🏠 Home: playing with Briella</div>
+                    <div class="option-btn" data-q="1" data-correct="false"><span class="option-marker">D</span>💰 Market: count all the $ in the drawer</div>
+                </div>
+                <div class="feedback-area" id="feedback1"></div>
+                <div class="wrong-counter" id="wrong1"></div>
+            </div>
+
+            <!-- Question 2 -->
+            <div class="question-panel hidden" id="question2">
+                <div class="q-number"><span>02</span> / 05</div>
+                <div class="q-text">Which sound makes you happy?</div>
+                <div class="options-grid">
+                    <div class="option-btn" data-q="2" data-correct="true"><span class="option-marker">A</span>🔊 A loud engine roaring</div>
+                    <div class="option-btn" data-q="2" data-correct="false"><span class="option-marker">B</span>👶 Briella laughing or pretending she's coughing</div>
+                    <div class="option-btn" data-q="2" data-correct="false"><span class="option-marker">C</span>📞 Mario market's phone ringing</div>
+                    <div class="option-btn" data-q="2" data-correct="false"><span class="option-marker">D</span>🎵 Me singing 'pretty little baby'</div>
+                </div>
+                <div class="feedback-area" id="feedback2"></div>
+                <div class="wrong-counter" id="wrong2"></div>
+            </div>
+
+            <!-- Question 3 -->
+            <div class="question-panel hidden" id="question3">
+                <div class="q-number"><span>03</span> / 05</div>
+                <div class="q-text">Which smell feels exciting rather than ordinary?</div>
+                <div class="options-grid">
+                    <div class="option-btn" data-q="3" data-correct="false"><span class="option-marker">A</span>🥖 Fresh bread from the mini-market</div>
+                    <div class="option-btn" data-q="3" data-correct="false"><span class="option-marker">B</span>🧴 Briella's shampoo</div>
+                    <div class="option-btn" data-q="3" data-correct="false"><span class="option-marker">C</span>🧺 Le chat laundry detergent</div>
+                    <div class="option-btn" data-q="3" data-correct="true"><span class="option-marker">D</span>🔥 Burnt rubber and fuel in the air</div>
+                </div>
+                <div class="feedback-area" id="feedback3"></div>
+                <div class="wrong-counter" id="wrong3"></div>
+            </div>
+
+            <!-- Question 4 -->
+            <div class="question-panel hidden" id="question4">
+                <div class="q-number"><span>04</span> / 05</div>
+                <div class="q-text">Which skill would make you feel like a hero?</div>
+                <div class="options-grid">
+                    <div class="option-btn" data-q="4" data-correct="false"><span class="option-marker">A</span>🧮 Memorizing the prices in the market perfectly</div>
+                    <div class="option-btn" data-q="4" data-correct="false"><span class="option-marker">B</span>😴 Putting Briella to sleep in under a minute</div>
+                    <div class="option-btn" data-q="4" data-correct="true"><span class="option-marker">C</span>🏎️ Controlling power and precision at high speed</div>
+                    <div class="option-btn" data-q="4" data-correct="false"><span class="option-marker">D</span>👕 Folding Briella's tiny clothes neatly</div>
+                </div>
+                <div class="feedback-area" id="feedback4"></div>
+                <div class="wrong-counter" id="wrong4"></div>
+            </div>
+
+            <!-- Question 5 -->
+            <div class="question-panel hidden" id="question5">
+                <div class="q-number"><span>05</span> / 05</div>
+                <div class="q-text">Which of these would make you forget everything else for a while?</div>
+                <div class="options-grid">
+                    <div class="option-btn" data-q="5" data-correct="true"><span class="option-marker">A</span>🏎️ Driving something fast and crazy</div>
+                    <div class="option-btn" data-q="5" data-correct="false"><span class="option-marker">B</span>💵 A busy day in the market with lots of money</div>
+                    <div class="option-btn" data-q="5" data-correct="false"><span class="option-marker">C</span>😴 Briella sleeping the whole night and letting you sleep as well (finally!)</div>
+                    <div class="option-btn" data-q="5" data-correct="false"><span class="option-marker">D</span>🥃 Drinking Arak with your friends</div>
+                </div>
+                <div class="feedback-area" id="feedback5"></div>
+                <div class="wrong-counter" id="wrong5"></div>
+            </div>
+
+            <!-- Final Panel with Yes/No buttons -->
+            <div class="final-panel" id="finalPanel">
+                <h2><span>🏁</span> FINISH LINE <span>🏁</span></h2>
+                <div style="font-size: 2.5rem; margin: 16px 0;">
+                    <i class="fas fa-heart" style="color: #FEBB12;"></i>
+                    <i class="fas fa-flag-checkered" style="color: #000;"></i>
+                    <i class="fas fa-heart" style="color: #FEBB12;"></i>
+                </div>
+                <p style="font-size: 1.3rem; font-weight: 600; margin-bottom: 8px;">Ready to race into another year with your forever co-driver?</p>
+                <p style="color: #666; margin: 8px 0 20px;">Try clicking 'No' if you dare 😉</p>
+                
+                <div class="rally-buttons">
+                    <button class="btn-primary" id="yesBtn"><i class="fas fa-check"></i> YES!</button>
+                    <button class="btn-secondary" id="noBtn">No</button>
+                </div>
+            </div>
+
+            <!-- Result Panel -->
+            <div class="result-panel" id="resultPanel">
+                <h3>Congratulations 🎊</h3>
+                <div class="finish-flags">
+                    <span>🏁</span> <i class="fas fa-heart" style="color: #FEBB12;"></i> <span>🏁</span>
+                </div>
+                <p>You have officially unlocked an experience involving speed, smoke, adrenaline, and zero calm behavior.</p>
+                <p>Get ready for tomorrow and wear something you don't mind smelling like victory ✌️ 😉</p>
+                <div style="margin-top: 20px; font-size: 1.8rem;">
+                    <i class="fas fa-trophy" style="color: #FEBB12;"></i>
+                    <i class="fas fa-heart" style="color: #000;"></i>
+                    <i class="fas fa-flag-checkered" style="color: #FEBB12;"></i>
+                </div>
+            </div>
+
+            <!-- Footer -->
+            <div class="footer">
+                <div class="footer-rally">
+                    <i class="fas fa-gas-pump"></i>
+                    <i class="fas fa-flag-checkered"></i>
+                    <i class="fas fa-trophy"></i>
+                </div>
+                <div>Powered by Digital Brain Lebanon - 2026 ©</div>
+                <div>🏎️ ⛽ 🏁</div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        (function() {
+            // State
+            let currentQ = 1;
+            let correctCount = 0;
+            let wrongAttempts = [0,0,0,0,0];
+            let answered = [false,false,false,false,false];
+            
+            // Custom wrong messages for each question
+            const wrongMessages = [
+                "", // index 0 unused
+                "Hmm… not crazy enough. Try again 😉",
+                "Cute, but this is louder than that. Try again 😏",
+                "Yum, smells nice… but this surprise is way more thrilling. Try again 😄",
+                "A heroic choice, but this one needs more speed and drama — try again!",
+                "Nice try, but this one is all about speed and fun. Try again 😉"
+            ];
+            
+            // DOM elements
+            const qPanels = [null,
+                document.getElementById('question1'),
+                document.getElementById('question2'),
+                document.getElementById('question3'),
+                document.getElementById('question4'),
+                document.getElementById('question5')
+            ];
+            const finalPanel = document.getElementById('finalPanel');
+            const resultPanel = document.getElementById('resultPanel');
+            const stageDisplay = document.getElementById('stageDisplay');
+            const scoreDisplay = document.getElementById('scoreDisplay');
+            const attemptsDisplay = document.getElementById('attemptsDisplay');
+            const progressFill = document.getElementById('progressFill');
+            const progressPercent = document.getElementById('progressPercent');
+            
+            // Initially hide final and result panels, show question 1
+            finalPanel.style.display = 'none';
+            resultPanel.style.display = 'none';
+            
+            // Update UI
+            function updateStats() {
+                stageDisplay.innerText = `${currentQ > 5 ? 5 : currentQ}/5`;
+                scoreDisplay.innerText = correctCount;
+                const totalWrong = wrongAttempts.reduce((a,b) => a + b, 0);
+                attemptsDisplay.innerText = totalWrong;
+                
+                let percent = (Math.min(currentQ-1, 5) / 5) * 100;
+                if (currentQ > 5) percent = 100;
+                progressFill.style.width = percent + '%';
+                progressPercent.innerText = percent + '%';
+            }
+            
+            // Show question
+            function showQuestion(num) {
+                // Hide all questions
+                for (let i = 1; i <= 5; i++) {
+                    if (qPanels[i]) qPanels[i].classList.add('hidden');
+                }
+                // Hide final panel and result panel when showing questions
+                finalPanel.style.display = 'none';
+                resultPanel.style.display = 'none';
+                
+                if (num >= 1 && num <= 5) {
+                    qPanels[num].classList.remove('hidden');
+                    currentQ = num;
+                }
+                updateStats();
+            }
+            
+            // Handle correct answer
+            function handleCorrect(qId, btn) {
+                if (answered[qId-1]) return;
+                
+                answered[qId-1] = true;
+                correctCount++;
+                
+                // Mark correct button
+                btn.classList.add('correct');
+                
+                // Show feedback
+                const fb = document.getElementById(`feedback${qId}`);
+                fb.innerHTML = '<i class="fas fa-check-circle" style="color: #000; font-size: 1.5rem;"></i> <span style="font-weight: 600;">Correct! Great driving!</span>';
+                
+                // Clear wrong counter
+                document.getElementById(`wrong${qId}`).innerHTML = '';
+                
+                // Disable all options for this question
+                const parent = qPanels[qId];
+                const options = parent.querySelectorAll('.option-btn');
+                options.forEach(opt => {
+                    opt.style.pointerEvents = 'none';
+                });
+                
+                // Move to next question or finish
+                setTimeout(() => {
+                    if (qId < 5) {
+                        showQuestion(qId + 1);
+                    } else {
+                        // All questions done - hide all questions and show final panel
+                        for (let i = 1; i <= 5; i++) {
+                            if (qPanels[i]) qPanels[i].classList.add('hidden');
+                        }
+                        // Show final panel using style.display, not classList
+                        finalPanel.style.display = 'block';
+                        resultPanel.style.display = 'none';
+                        currentQ = 6;
+                        updateStats();
+                        createConfetti();
+                        
+                        // Reset no button position
+                        const noBtn = document.getElementById('noBtn');
+                        if (noBtn) {
+                            resetNoButtonPosition(noBtn);
+                        }
+                        
+                        console.log('Final panel should be visible now');
+                    }
+                }, 1000);
+            }
+            
+            // Reset No button to centered position
+            function resetNoButtonPosition(noBtn) {
+                noBtn.style.position = 'relative';
+                noBtn.style.left = '0';
+                noBtn.style.top = '0';
+                noBtn.style.transform = 'none';
+                noBtn.style.transition = 'none';
+                noBtn.style.zIndex = '5';
+            }
+            
+            // Move No button randomly on the screen - ALWAYS moves when called
+            function moveNoButtonRandomly(button) {
+                // Change to fixed position to move anywhere
+                button.style.position = 'fixed';
+                button.style.zIndex = '9999';
+                
+                const viewportWidth = window.innerWidth;
+                const viewportHeight = window.innerHeight;
+                const buttonWidth = button.offsetWidth;
+                const buttonHeight = button.offsetHeight;
+                
+                // Calculate safe area (keep button fully visible)
+                const maxX = viewportWidth - buttonWidth - 20;
+                const maxY = viewportHeight - buttonHeight - 20;
+                
+                // Get current position
+                const currentX = parseInt(button.style.left) || (viewportWidth/2 - buttonWidth/2);
+                const currentY = parseInt(button.style.top) || (viewportHeight/2 - buttonHeight/2);
+                
+                // Generate new position far from current position
+                let newX, newY;
+                let attempts = 0;
+                const minDistance = 150; // Minimum distance to move
+                
+                do {
+                    newX = Math.random() * maxX;
+                    newY = Math.random() * maxY;
+                    attempts++;
+                    
+                    // Calculate distance from current position
+                    const distance = Math.sqrt(Math.pow(newX - currentX, 2) + Math.pow(newY - currentY, 2));
+                    
+                    // Accept position if it's far enough or we've tried too many times
+                    if (distance >= minDistance || attempts > 20) {
+                        break;
+                    }
+                } while (true);
+                
+                // Apply position with fast transition
+                button.style.transition = 'all 0.1s ease-out';
+                button.style.left = `${newX}px`;
+                button.style.top = `${newY}px`;
+                
+                // Add shake effect
+                button.classList.add('shake');
+                setTimeout(() => {
+                    button.classList.remove('shake');
+                }, 500);
+                
+                // Prevent any default actions
+                return false;
+            }
+            
+            // Handle wrong answer
+            function handleWrong(qId, btn) {
+                if (answered[qId-1]) return;
+                
+                wrongAttempts[qId-1]++;
+                
+                // Show wrong visual
+                btn.classList.add('wrong');
+                
+                // Update wrong counter with attempt number
+                const wrongEl = document.getElementById(`wrong${qId}`);
+                const count = wrongAttempts[qId-1];
+                let attemptMessage = '';
+                if (count === 1) attemptMessage = '💪 first try';
+                else if (count === 2) attemptMessage = '⚡ second go';
+                else if (count === 3) attemptMessage = '🏁 third time';
+                else attemptMessage = `❤️ attempt #${count}`;
+                wrongEl.innerHTML = attemptMessage + ' <i class="fas fa-redo-alt"></i>';
+                
+                // Show custom wrong message in feedback
+                const fb = document.getElementById(`feedback${qId}`);
+                fb.innerHTML = '<i class="fas fa-times-circle" style="color: #ff4444; font-size: 1.5rem;"></i> <span style="color: #cc0000;">' + wrongMessages[qId] + '</span>';
+                fb.classList.add('shake');
+                
+                setTimeout(() => {
+                    btn.classList.remove('wrong');
+                    fb.innerHTML = '';
+                    fb.classList.remove('shake');
+                }, 1500); // Longer timeout so the custom message can be read
+                
+                updateStats();
+            }
+            
+            // Option click handler - optimized for touch
+            function setupOptions() {
+                document.querySelectorAll('.option-btn').forEach(btn => {
+                    btn.addEventListener('click', function(e) {
+                        e.preventDefault();
+                        
+                        const qId = parseInt(this.dataset.q);
+                        
+                        // If already answered correctly, ignore
+                        if (answered[qId-1]) return;
+                        
+                        const isCorrect = this.dataset.correct === 'true';
+                        
+                        if (isCorrect) {
+                            handleCorrect(qId, this);
+                        } else {
+                            handleWrong(qId, this);
+                        }
+                    });
+                    
+                    // Touch optimization
+                    btn.addEventListener('touchstart', function(e) {
+                        // Just to ensure touch works, no need to prevent default
+                    }, { passive: true });
+                });
+            }
+            
+            // No button runaway - updated to match second code exactly
+            const noBtn = document.getElementById('noBtn');
+            if (noBtn) {
+                // Start with normal position
+                resetNoButtonPosition(noBtn);
+                
+                // Add multiple event listeners to catch ALL interactions
+                noBtn.addEventListener('mousedown', function(e) {
+                    e.preventDefault();
+                    if (finalPanel.style.display !== 'block') return;
+                    moveNoButtonRandomly(noBtn);
+                });
+                
+                noBtn.addEventListener('touchstart', function(e) {
+                    e.preventDefault();
+                    if (finalPanel.style.display !== 'block') return;
+                    moveNoButtonRandomly(noBtn);
+                }, { passive: false });
+                
+                noBtn.addEventListener('mouseover', function(e) {
+                    if (finalPanel.style.display !== 'block') return;
+                    moveNoButtonRandomly(noBtn);
+                });
+                
+                noBtn.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    if (finalPanel.style.display !== 'block') return;
+                    moveNoButtonRandomly(noBtn);
+                });
+                
+                // Also move on touchmove to catch any touch interaction
+                noBtn.addEventListener('touchmove', function(e) {
+                    e.preventDefault();
+                    if (finalPanel.style.display !== 'block') return;
+                    moveNoButtonRandomly(noBtn);
+                }, { passive: false });
+            }
+            
+            // Yes button
+            document.getElementById('yesBtn').addEventListener('click', function(e) {
+                e.preventDefault();
+                finalPanel.style.display = 'none';
+                resultPanel.style.display = 'block';
+                createConfetti(true);
+            });
+            
+            // Confetti - optimized
+            function createConfetti(more = false) {
+                const container = document.querySelector('.container');
+                const count = more ? 60 : 30;
+                
+                for (let i = 0; i < count; i++) {
+                    setTimeout(() => {
+                        const conf = document.createElement('div');
+                        conf.className = 'confetti';
+                        conf.style.backgroundColor = ['#FEBB12', '#000', '#ffffff', '#FEBB12'][Math.floor(Math.random() * 4)];
+                        conf.style.left = Math.random() * 100 + '%';
+                        conf.style.width = (5 + Math.random() * 10) + 'px';
+                        conf.style.height = conf.style.width;
+                        conf.style.borderRadius = Math.random() > 0.5 ? '50%' : '2px';
+                        conf.style.top = '-20px';
+                        conf.style.opacity = '1';
+                        conf.style.zIndex = '1000';
+                        container.appendChild(conf);
+                        
+                        const duration = 1000 + Math.random() * 1500;
+                        const xMove = (Math.random() - 0.5) * 80;
+                        
+                        conf.animate([
+                            { transform: 'translateY(0) rotate(0deg)', opacity: 1 },
+                            { transform: `translateY(${250 + Math.random() * 250}px) translateX(${xMove}px) rotate(${Math.random() * 360}deg)`, opacity: 0 }
+                        ], {
+                            duration: duration,
+                            easing: 'cubic-bezier(0.25, 0.1, 0.25, 1)'
+                        }).onfinish = () => conf.remove();
+                    }, i * 20);
+                }
+            }
+            
+            // Handle window resize
+            window.addEventListener('resize', function() {
+                if (finalPanel.style.display === 'block') {
+                    const noBtn = document.getElementById('noBtn');
+                    if (noBtn) {
+                        // Keep button on screen if it's currently fixed
+                        const currentLeft = parseInt(noBtn.style.left);
+                        const currentTop = parseInt(noBtn.style.top);
+                        const viewportWidth = window.innerWidth;
+                        const viewportHeight = window.innerHeight;
+                        const buttonWidth = noBtn.offsetWidth;
+                        const buttonHeight = noBtn.offsetHeight;
+                        
+                        // Adjust position if button is off-screen
+                        if (currentLeft > viewportWidth - buttonWidth) {
+                            noBtn.style.left = `${viewportWidth - buttonWidth - 20}px`;
+                        }
+                        if (currentTop > viewportHeight - buttonHeight) {
+                            noBtn.style.top = `${viewportHeight - buttonHeight - 20}px`;
+                        }
+                    }
+                }
+            });
+            
+            // Initialize - make sure we start with question 1 visible
+            showQuestion(1);
+            
+            // Setup options after initialization
+            setupOptions();
+            updateStats();
+            
+            console.log('Initialization complete');
+        })();
+    </script>
+</body>
+</html>

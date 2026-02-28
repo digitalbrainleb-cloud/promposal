@@ -2,1163 +2,946 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
-    <title>Mario Birthday · Champion Edition</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Prom 2026</title>
+    <!-- modern fonts: elegant & clean -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+    <!-- Font Awesome 6 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
             -webkit-tap-highlight-color: transparent;
+            user-select: none;
         }
 
         body {
-            background: #f0f0f0;
             min-height: 100vh;
+            background: linear-gradient(145deg, #fff9f5 0%, #faf0f0 100%);
+            font-family: 'Quicksand', sans-serif;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 12px;
+            position: relative;
+        }
+
+        /* soft background shapes */
+        .shape {
+            position: fixed;
+            width: 60vmax;
+            height: 60vmax;
+            border-radius: 50%;
+            background: radial-gradient(circle at 30% 30%, rgba(235, 215, 225, 0.4), rgba(245, 225, 235, 0.1) 70%);
+            filter: blur(70px);
+            z-index: 0;
+        }
+        .shape-1 { top: -10vh; left: -10vw; background: #f0dee8; }
+        .shape-2 { bottom: -15vh; right: -10vw; background: #e4deed; width: 70vmax; height: 70vmax; }
+
+        /* main card */
+        .container {
+            max-width: 1100px;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(22px) saturate(180%);
+            -webkit-backdrop-filter: blur(22px) saturate(180%);
+            border-radius: 48px 48px 40px 40px;
+            padding: 32px 24px;
+            box-shadow: 0 35px 70px -20px rgba(160, 120, 140, 0.2), 0 0 0 1px rgba(255, 255, 255, 0.7) inset, 0 0 60px rgba(255, 235, 245, 0.6);
+            position: relative;
+            z-index: 10;
+            border: 1px solid rgba(255, 255, 255, 0.6);
+            margin: 0 auto;
+        }
+
+        /* header */
+        .header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .icon-strip {
             display: flex;
             justify-content: center;
-            align-items: center;
-            padding: 12px;
-        }
-
-        .container {
-            max-width: 720px;
-            width: 100%;
-            background: white;
-            border-radius: 28px;
-            box-shadow: 0 20px 40px -12px rgba(0, 0, 0, 0.3);
-            position: relative;
-            overflow: hidden;
-        }
-
-        /* Racing stripe top */
-        .racing-stripe {
-            height: 6px;
-            width: 100%;
-            background: repeating-linear-gradient(90deg, #000 0px, #000 20px, #FEBB12 20px, #FEBB12 40px);
-        }
-
-        .content {
-            padding: 24px 20px 20px;
-        }
-
-        @media (max-width: 480px) {
-            .content {
-                padding: 20px 16px 16px;
-            }
-        }
-
-        /* Header */
-        .header {
-            display: flex;
-            align-items: flex-start;
-            justify-content: space-between;
-            margin-bottom: 20px;
-            flex-wrap: wrap;
-            gap: 12px;
-        }
-
-        .title-section h1 {
-            color: #000;
+            gap: 15px;
+            margin-bottom: 16px;
+            color: #c2a5b8;
             font-size: 1.8rem;
-            font-weight: 700;
-            letter-spacing: -0.5px;
-            line-height: 1.2;
         }
-
-        @media (max-width: 480px) {
-            .title-section h1 {
-                font-size: 1.5rem;
-            }
-        }
-
-        @media (max-width: 360px) {
-            .title-section h1 {
-                font-size: 1.3rem;
-            }
-        }
-
-        .title-section .subhead {
-            color: #666;
-            font-size: 0.9rem;
-            font-weight: 500;
-            margin-top: 4px;
+        .icon-strip i {
+            background: rgba(255, 255, 255, 0.8);
+            width: 60px;
+            height: 60px;
             display: flex;
             align-items: center;
-            gap: 8px;
-            flex-wrap: wrap;
+            justify-content: center;
+            border-radius: 50%;
+            border: 1px solid rgba(255, 255, 255, 0.9);
+            box-shadow: 0 8px 20px -8px rgba(170, 130, 160, 0.2);
+            transition: 0.2s;
         }
 
-        .badge {
-            background: #FEBB12;
-            color: #000;
-            padding: 6px 14px;
-            border-radius: 100px;
+        h1 {
+            font-family: 'Playfair Display', serif;
             font-weight: 600;
-            font-size: 0.85rem;
-            display: flex;
+            font-size: 3.8rem;
+            background: linear-gradient(145deg, #8a6f85, #b18ea5, #8a6f85);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            letter-spacing: -0.02em;
+            margin: 0 0 6px;
+            line-height: 1.1;
+        }
+        @media (max-width:480px){
+            h1{ font-size: 3rem; }
+        }
+
+        .grad-tag {
+            display: inline-flex;
             align-items: center;
-            gap: 8px;
-            border: 2px solid #000;
-            white-space: nowrap;
-        }
-
-        @media (max-width: 480px) {
-            .badge {
-                padding: 5px 12px;
-                font-size: 0.8rem;
-            }
-        }
-
-        /* Rally stats - responsive grid */
-        .rally-stats {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
             gap: 12px;
-            margin-bottom: 24px;
+            background: rgba(255, 255, 255, 0.6);
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(255, 255, 255, 0.8);
+            border-radius: 60px;
+            padding: 10px 28px;
+            color: #7a5d73;
+            font-size: 1.2rem;
+            font-weight: 400;
+            margin-top: 8px;
         }
 
-        @media (max-width: 480px) {
-            .rally-stats {
-                gap: 8px;
-            }
+        /* progress */
+        .progress-area {
+            margin: 30px 0 25px;
         }
-
-        .stat-item {
-            background: #f8f8f8;
-            border-radius: 18px;
-            padding: 14px 8px;
-            border: 1px solid #e0e0e0;
+        .progress-meta {
             display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 6px;
-            text-align: center;
-        }
-
-        @media (max-width: 480px) {
-            .stat-item {
-                padding: 10px 4px;
-            }
-        }
-
-        .stat-value {
-            font-size: 1.8rem;
-            font-weight: 700;
-            color: #000;
-            line-height: 1;
-        }
-
-        @media (max-width: 480px) {
-            .stat-value {
-                font-size: 1.5rem;
-            }
-        }
-
-        @media (max-width: 360px) {
-            .stat-value {
-                font-size: 1.3rem;
-            }
-        }
-
-        .stat-label {
-            font-size: 0.75rem;
-            color: #666;
+            justify-content: space-between;
+            color: #b99aaf;
+            font-weight: 400;
             text-transform: uppercase;
-            letter-spacing: 0.3px;
-            display: flex;
-            align-items: center;
-            gap: 4px;
-            white-space: nowrap;
-        }
-
-        @media (max-width: 360px) {
-            .stat-label {
-                font-size: 0.7rem;
-                letter-spacing: 0;
-            }
-        }
-
-        .stat-label i {
-            color: #FEBB12;
-            font-size: 0.8rem;
-        }
-
-        /* Progress */
-        .progress-section {
-            margin-bottom: 28px;
-        }
-
-        .progress-header {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 8px;
-            font-weight: 600;
+            letter-spacing: 2px;
             font-size: 0.85rem;
-            color: #444;
+            margin-bottom: 8px;
         }
-
         .progress-track {
-            height: 8px;
-            background: #e0e0e0;
-            border-radius: 100px;
+            height: 5px;
+            background: rgba(180, 150, 170, 0.2);
+            border-radius: 8px;
             overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.4);
         }
-
         .progress-fill {
             height: 100%;
             width: 0%;
-            background: #000;
-            border-radius: 100px;
-            transition: width 0.4s ease;
-            position: relative;
+            background: linear-gradient(90deg, #dbb9d0, #b38faa, #dbb9d0);
+            border-radius: 8px;
+            box-shadow: 0 0 15px #eccee2;
+            transition: width 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
         }
 
-        .progress-fill::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            right: 0;
-            width: 16px;
-            height: 100%;
-            background: #FEBB12;
-            border-radius: 100px;
+        /* questions */
+        .question-container {
+            display: none;
+        }
+        .question-container.active {
+            display: block;
+            animation: fadeSlide 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+        }
+        @keyframes fadeSlide {
+            0% { opacity: 0; transform: translateY(20px); }
+            100% { opacity: 1; transform: translateY(0); }
         }
 
-        /* Question container */
-        .question-panel {
-            background: #f8f8f8;
-            border-radius: 24px;
-            padding: 20px;
-            border: 2px solid #000;
-            margin-bottom: 24px;
+        .question-meta {
+            display: flex;
+            align-items: center;
+            gap: 18px;
+            margin-bottom: 18px;
+            flex-wrap: wrap;
         }
-
-        @media (max-width: 480px) {
-            .question-panel {
-                padding: 16px;
-            }
-        }
-
-        .q-number {
-            display: inline-block;
-            background: #000;
-            color: white;
-            padding: 4px 14px;
+        .q-num {
+            background: rgba(255, 255, 255, 0.8);
+            border: 1px solid rgba(255, 255, 255, 0.9);
+            padding: 6px 24px;
             border-radius: 40px;
+            color: #81637a;
+            font-weight: 600;
+            font-size: 0.95rem;
+        }
+        .q-cat {
+            color: #b99aaf;
+            font-weight: 400;
+            text-transform: uppercase;
+            letter-spacing: 2px;
             font-size: 0.85rem;
-            font-weight: 600;
-            margin-bottom: 14px;
-            letter-spacing: 0.3px;
         }
 
-        .q-number span {
-            color: #FEBB12;
-            margin-right: 4px;
+        .question-text {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.2rem;
+            font-weight: 500;
+            color: #352b32;
+            line-height: 1.2;
+            margin-bottom: 30px;
+            border-left: 4px solid #ecd6e4;
+            padding-left: 22px;
+        }
+		
+		.final-text {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.2rem;
+            font-weight: 500;
+            color: #352b32;
+            margin-bottom: 30px;
+            padding-left: 22px;
+        }
+		
+        @media (max-width:480px){
+            .question-text{ font-size: 1.9rem; }
         }
 
-        .q-text {
-            font-size: 1.4rem;
-            font-weight: 600;
-            color: #000;
-            margin-bottom: 20px;
-            line-height: 1.3;
-            word-break: break-word;
-        }
-
-        @media (max-width: 480px) {
-            .q-text {
-                font-size: 1.3rem;
-            }
-        }
-
-        @media (max-width: 360px) {
-            .q-text {
-                font-size: 1.2rem;
-            }
-        }
-
-        /* Options grid - mobile optimized */
+        /* options */
         .options-grid {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
-            gap: 10px;
-            margin-bottom: 16px;
+            gap: 16px;
+            margin: 25px 0 20px;
+        }
+        @media (max-width: 650px) {
+            .options-grid { grid-template-columns: 1fr; }
         }
 
-        @media (max-width: 500px) {
-            .options-grid {
-                grid-template-columns: 1fr;
-                gap: 8px;
-            }
-        }
-
-        .option-btn {
-            background: white;
-            border: 2px solid #000;
+        .option-card {
+            background: rgba(255, 255, 255, 0.6);
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(255, 255, 255, 0.8);
             border-radius: 40px;
-            padding: 14px 12px;
-            font-size: 1rem;
-            font-weight: 600;
-            color: #000;
-            cursor: pointer;
-            transition: all 0.15s;
-            text-align: left;
+            padding: 18px 16px;
             display: flex;
             align-items: center;
-            gap: 10px;
-            box-shadow: 0 3px 0 #ccc;
-            -webkit-touch-callout: none;
-            -webkit-user-select: none;
-            user-select: none;
-            touch-action: manipulation;
-            min-height: 60px;
+            gap: 16px;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+            font-size: 1.1rem;
+            font-weight: 500;
+            color: #493e45;
+            box-shadow: 0 8px 20px -10px rgba(150, 110, 140, 0.1);
         }
-
-        @media (max-width: 480px) {
-            .option-btn {
-                padding: 12px 10px;
-                font-size: 0.95rem;
-                min-height: 56px;
-            }
+        .option-card:hover {
+            background: rgba(255, 255, 255, 0.9);
+            transform: translateY(-3px) scale(1.01);
+            border-color: #efd5e6;
+            box-shadow: 0 16px 30px -12px #b999b2;
         }
-
-        .option-btn:active {
-            transform: translateY(-2px);
-            box-shadow: 0 5px 0 #FEBB12;
-            border-color: #FEBB12;
-            background: #fffaf0;
+        .option-card.correct {
+            background: #f5e4f0;
+            border-color: #e2c1d8;
+            box-shadow: 0 0 0 3px rgba(220, 180, 210, 0.2);
         }
-
-        .option-btn.correct {
-            background: #000;
-            color: white;
-            border-color: #FEBB12;
-            box-shadow: 0 3px 0 #FEBB12;
+        .option-card.wrong {
+            background: #ffe8ec;
+            border-color: #eabac6;
+            animation: shake 0.3s;
         }
-
-        .option-btn.correct .option-marker {
-            background: #FEBB12;
-            color: #000;
+        @keyframes shake {
+            0%,100%{transform:translateX(0)} 20%{transform:translateX(-5px)} 40%{transform:translateX(5px)} 60%{transform:translateX(-3px)} 80%{transform:translateX(3px)}
         }
-
-        .option-btn.wrong {
-            background: #fff0f0;
-            border-color: #ff4444;
-            color: #cc0000;
-            box-shadow: 0 3px 0 #ffaaaa;
-        }
-
-        .option-marker {
-            width: 28px;
-            height: 28px;
+        .opt-icon {
+            width: 44px; height: 44px;
+            background: white;
             border-radius: 50%;
-            background: #f0f0f0;
-            display: inline-flex;
+            display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 0.9rem;
-            font-weight: 700;
-            color: #666;
-            flex-shrink: 0;
+            font-size: 1.5rem;
+            color: #b28ba3;
+            border: 1px solid rgba(255,255,255,0.9);
+            flex-shrink:0;
         }
 
-        @media (max-width: 480px) {
-            .option-marker {
-                width: 24px;
-                height: 24px;
-                font-size: 0.8rem;
-            }
+        .feedback {
+            min-height: 45px;
+            margin: 15px 0;
+            font-size: 2rem;
+			text-align: center;
         }
-
-        .feedback-area {
-            min-height: 48px;
-            padding: 10px 16px;
-            <!--background: white;-->
+        .feedback-badge {
+            background: rgba(255, 255, 255, 0.6);
+            backdrop-filter: blur(8px);
             border-radius: 40px;
-            border: 0px solid #000;
-            display: flex;
+            padding: 8px 24px;
+            display: inline-block;
+            border: 1px solid rgba(255,255,255,0.8);
+            color: #7a5d73;
+        }
+        .wrong-counter {
+            color: #c9a7bc;
+            font-style: italic;
+            text-align: right;
+            min-height: 24px;
+            font-size:0.95rem;
+        }
+
+        /* BIG SCRATCH ZONE (500x500) - FIXED CENTERING */
+        .scratch-section {
+            display: none;
+            text-align: center;
+            padding: 15px 0 5px;
+            animation: popScratch 0.8s;
+            width: 100%;
+            display: none;
+            flex-direction: column;
             align-items: center;
-            gap: 10px;
-            font-weight: 500;
-            font-size: 0.95rem;
+            justify-content: center;
+        }
+
+        @keyframes popScratch {
+            0% { opacity: 0; transform: scale(0.9); }
+            100% { opacity: 1; transform: scale(1); }
+        }
+
+        .scratch-container {
+            position: relative;
+            width: 500px;
+            height: 500px;
+            margin: 10px auto;
+            border-radius: 60px;
+            overflow: hidden;
+            box-shadow: 0 25px 45px -15px #a8869b;
+            border: 4px solid rgba(255, 255, 255, 0.8);
+            cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="30" viewBox="0 0 24 30"><circle cx="12" cy="12" r="10" fill="white" stroke="%239977aa" stroke-width="2"/><path d="M12 22 L8 30 L16 30 L12 22" fill="white" stroke="%239977aa" stroke-width="2"/></svg>') 12 12, grabbing;
+            background: #faeef5;
+        }
+
+        /* underlayer: the question */
+        .scratch-under {
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: linear-gradient(145deg, #faeef5, #f5e4ed);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            border-radius: 60px;
+            padding: 30px;
+            box-shadow: inset 0 -5px 15px rgba(180, 130, 160, 0.2);
+            border: 2px solid white;
+            z-index: 1;
+            text-align: center;
+            font-family: 'Playfair Display', serif;
+            color: #7a5a70;
+        }
+        .under-message {
+            font-size: 2.8rem;
+            font-weight: 600;
+            line-height: 1.3;
+        }
+        .under-message span {
+            display: block;
+            font-size: 1.3rem;
+            font-family: 'Quicksand', sans-serif;
+            font-weight: 300;
+            color: #a58499;
             margin-top: 12px;
         }
 
-        @media (max-width: 480px) {
-            .feedback-area {
-                font-size: 0.9rem;
-                padding: 8px 14px;
-            }
-        }
-
-        .wrong-counter {
-            margin-top: 6px;
-            font-size: 0.85rem;
-            color: #FEBB12;
-            font-weight: 600;
-            text-align: right;
-            min-height: 24px;
-        }
-
-        /* Final panel */
-        .final-panel {
-            display: none;
-            background: #f8f8f8;
-            border-radius: 24px;
-            padding: 28px 20px;
-            border: 3px solid #000;
-            text-align: center;
-            margin-bottom: 24px;
-        }
-
-        @media (max-width: 480px) {
-            .final-panel {
-                padding: 24px 16px;
-            }
-        }
-
-        .final-panel h2 {
-            font-size: 2.2rem;
-            font-weight: 700;
-            margin-bottom: 12px;
-            color: #000;
-            line-height: 1.2;
-        }
-
-        @media (max-width: 480px) {
-            .final-panel h2 {
-                font-size: 1.8rem;
-            }
-        }
-
-        @media (max-width: 360px) {
-            .final-panel h2 {
-                font-size: 1.5rem;
-            }
-        }
-
-        .final-panel h2 span {
-            background: #FEBB12;
-            padding: 0 8px;
-            display: inline-block;
-        }
-
-        /* Rally buttons - mobile friendly */
-        .rally-buttons {
-            display: flex;
-            justify-content: center;
-            gap: 16px;
-            margin: 28px 0 12px;
-            flex-wrap: wrap;
-        }
-
-        @media (max-width: 480px) {
-            .rally-buttons {
-                gap: 12px;
-                flex-direction: column;
-                align-items: stretch;
-            }
-        }
-
-        .btn-primary, .btn-secondary {
-            padding: 16px 32px;
+        #scratchCanvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
             border-radius: 60px;
-            font-weight: 700;
-            font-size: 1.2rem;
-            cursor: pointer;
-            transition: all 0.15s;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
-            border: 2px solid #000;
-            -webkit-tap-highlight-color: transparent;
-            touch-action: manipulation;
-            min-width: 160px;
+            z-index: 3;
+            cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="30" viewBox="0 0 24 30"><circle cx="12" cy="12" r="10" fill="white" stroke="%239977aa" stroke-width="2"/><path d="M12 22 L8 30 L16 30 L12 22" fill="white" stroke="%239977aa" stroke-width="2"/></svg>') 12 12, grabbing;
+            display: block;
+            background: transparent;
         }
 
-        @media (max-width: 350px) {
-            .btn-primary, .btn-secondary {
-                width: 100%;
-                min-width: unset;
-                padding: 16px 20px;
-                font-size: 1.1rem;
-            }
+        .scratch-hint {
+            color: #b592a8;
+            margin: 15px 0 8px;
+            font-size: 1.3rem;
         }
 
-        .btn-primary {
-            background: #000;
-            color: white;
+        .scratch-progress-wrap {
+            margin: 15px auto 20px;
+            width: 80%;
+            max-width: 400px;
         }
-
-        .btn-primary:active {
-            background: #FEBB12;
-            color: #000;
-            transform: scale(0.98);
-        }
-
-        .btn-secondary {
-            background: #FEBB12;
-            color: #000;
-        }
-
-        .btn-secondary:active {
-            background: #f0f0f0;
-            transform: scale(0.98);
-        }
-
-        /* Result panel */
-        .result-panel {
-            display: none;
-            text-align: center;
-            padding: 24px 20px;
-            background: #f8f8f8;
-            border-radius: 24px;
-            border: 2px solid #000;
-            margin-bottom: 24px;
-        }
-
-        .result-panel h3 {
-            font-size: 2rem;
-            font-weight: 700;
-            margin-bottom: 16px;
-            background: #FEBB12;
-            display: inline-block;
-            padding: 8px 28px;
-            border-radius: 60px;
-            border: 2px solid #000;
-        }
-
-        @media (max-width: 480px) {
-            .result-panel h3 {
-                font-size: 1.6rem;
-                padding: 6px 20px;
-            }
-        }
-
-        .result-panel p {
-            font-size: 1.2rem;
-            margin: 16px 0;
-            color: #000;
-            font-weight: 500;
-            word-break: break-word;
-        }
-
-        @media (max-width: 480px) {
-            .result-panel p {
-                font-size: 1.1rem;
-                margin: 12px 0;
-            }
-        }
-
-        .finish-flags {
-            display: flex;
-            justify-content: center;
-            gap: 12px;
-            font-size: 2rem;
-            margin: 16px 0;
-            flex-wrap: wrap;
-        }
-
-        /* Footer - mobile responsive */
-        .footer {
-            margin-top: 28px;
-            padding-top: 16px;
-            border-top: 2px solid #e0e0e0;
-            text-align: center;
-            color: #666;
-            font-size: 0.85rem;
+        .scratch-progress-label {
             display: flex;
             justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 12px;
+            color: #b592a8;
+            margin-bottom: 6px;
+            font-size:1.1rem;
+        }
+        .scratch-progress-track {
+            height: 6px;
+            background: rgba(180, 140, 170, 0.2);
+            border-radius: 6px;
+            overflow: hidden;
+        }
+        .scratch-progress-fill {
+            height: 100%;
+            width: 0%;
+            background: linear-gradient(90deg, #dbb9d0, #b38faa);
+            transition: width 0.3s;
         }
 
-        @media (max-width: 480px) {
-            .footer {
-                flex-direction: column;
-                gap: 8px;
-                font-size: 0.8rem;
+        /* final buttons */
+        .post-scratch-buttons {
+            display: none;
+            margin: 25px 0 15px;
+            animation: fadeInUp 0.5s;
+            width: 100%;
+            text-align: center;
+        }
+        @keyframes fadeInUp {
+            0% { opacity: 0; transform: translateY(15px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+        .btn-pair {
+            display: flex;
+            justify-content: center;
+            gap: 35px;
+            flex-wrap: wrap;
+        }
+        .btn-classy {
+            padding: 20px 70px;
+            border-radius: 60px;
+            border: none;
+            font-size: 2.5rem;
+            font-weight: 600;
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.9);
+            color: #5b4855;
+            cursor: pointer;
+            transition: 0.2s;
+            font-family: 'Quicksand', sans-serif;
+            box-shadow: 0 15px 30px -12px #b290a7;
+        }
+        .btn-classy:hover {
+            background: white;
+            transform: translateY(-4px) scale(1.02);
+        }
+		.hidden {
+    display: none !important;
+}
+
+        .btn-yes { background: rgba(235, 215, 235, 0.7); }
+        .btn-no { background: rgba(240, 235, 240, 0.6); }
+
+        /* result section */
+        .result-section {
+            display: none;
+            text-align: center;
+            animation: reveal 0.7s;
+        }
+        .result-card {
+            background: rgba(255, 255, 255, 0.6);
+            backdrop-filter: blur(20px);
+            border-radius: 80px;
+            
+            border: 1px solid rgba(255,255,255,0.8);
+        }
+        .result-title {
+            font-size: 4rem;
+            font-family: 'Playfair Display', serif;
+            font-weight: 600;
+            background: linear-gradient(145deg, #8f748b, #b291a8);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        @media (max-width:480px){
+            .result-title{ font-size: 3rem; }
+        }
+
+        footer {
+            margin-top: 40px;
+            color: #c8b1c2;
+            border-top: 1px dashed #e0c9d9;
+            padding-top: 22px;
+            text-align: center;
+            font-size:1rem;
+        }
+
+        /* Mobile responsiveness */
+        @media (max-width: 600px) {
+            .scratch-container {
+                width: min(450px, 85vw);
+                height: min(450px, 85vw);
+                margin: 10px auto;
+            }
+            .under-message {
+                font-size: 2rem;
+            }
+            .btn-classy {
+                padding: 15px 40px;
+                font-size: 2rem;
+            }
+            .scratch-section {
+                padding: 10px 0;
             }
         }
 
-        .footer-rally {
-            display: flex;
-            gap: 12px;
-            color: #FEBB12;
-            font-size: 1.1rem;
-        }
-
-        .hidden {
-            display: none !important;
-        }
-
-        .shake {
-            animation: shake 0.4s ease;
-        }
-
-        @keyframes shake {
-            0%, 100% { transform: translateX(0); }
-            25% { transform: translateX(-5px); }
-            75% { transform: translateX(5px); }
-        }
-
-        /* No button runaway - mobile adjusted */
-        #noBtn {
-            transition: all 0.2s ease;
-            position: relative;
-            cursor: pointer;
-        }
-
-        /* Confetti */
-        .confetti {
-            position: absolute;
-            width: 8px;
-            height: 8px;
-            background: #FEBB12;
-            opacity: 0;
-            pointer-events: none;
-            z-index: 1000;
-        }
-
-        /* Touch optimizations */
-        .option-btn, .btn-primary, .btn-secondary {
-            -webkit-touch-callout: none;
-            -webkit-user-select: none;
-            user-select: none;
-        }
-
-        /* Prevent zoom on tap for inputs */
-        select, textarea, input {
-            font-size: 16px;
-        }
-
-        /* Better touch targets */
-        .option-btn, .btn-primary, .btn-secondary {
-            min-height: 56px;
+        @media (max-width: 400px) {
+            .scratch-container {
+                width: min(350px, 80vw);
+                height: min(350px, 80vw);
+            }
+            .under-message {
+                font-size: 1.6rem;
+            }
         }
     </style>
 </head>
 <body>
+    <div class="shape shape-1"></div>
+    <div class="shape shape-2"></div>
+
     <div class="container">
-        <div class="racing-stripe"></div>
-        
-        <div class="content">
-            <!-- Header -->
-            <div class="header">
-                <div class="title-section">
-                    <h1>Happy Birthday, Maghiottii</h1>
-                    <div class="subhead">
-                        <i class="fas fa-flag-checkered" style="color: #FEBB12;"></i>
-                        <span>Special Edition for a legend like you.</span>
-                        <i class="fas fa-trophy" style="color: #FEBB12;"></i>
-                    </div>
-                </div>
-                <div class="badge">
-                    <i class="fas fa-gas-pump"></i>
-                    <span>Full Gas</span>
-                </div>
+        <div class="header">
+            <div class="icon-strip">
+                <i class="fas fa-graduation-cap"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-scroll"></i>
             </div>
-
-            <!-- Rally stats - responsive grid -->
-            <div class="rally-stats">
-                <div class="stat-item">
-                    <div class="stat-value" id="stageDisplay">1/5</div>
-                    <div class="stat-label"><i class="fas fa-flag"></i> stage</div>
-                </div>
-                <div class="stat-item">
-                    <div class="stat-value" id="scoreDisplay">0</div>
-                    <div class="stat-label"><i class="fas fa-star"></i> wins</div>
-                </div>
-                <div class="stat-item">
-                    <div class="stat-value" id="attemptsDisplay">0</div>
-                    <div class="stat-label"><i class="fas fa-redo-alt"></i> attempts</div>
-                </div>
-            </div>
-
-            <!-- Progress -->
-            <div class="progress-section">
-                <div class="progress-header">
-                    <span><i class="fas fa-flag-checkered" style="color: #FEBB12;"></i> Mario progress</span>
-                    <span id="progressPercent">0%</span>
-                </div>
-                <div class="progress-track">
-                    <div class="progress-fill" id="progressFill" style="width: 0%;"></div>
-                </div>
-            </div>
-
-            <!-- Question 1 -->
-            <div class="question-panel" id="question1">
-                <div class="q-number"><span>01</span> / 05</div>
-                <div class="q-text">If you could go anywhere for 3 hours, where would you go?</div>
-                <div class="options-grid">
-                    <div class="option-btn" data-q="1" data-correct="false"><span class="option-marker">A</span>👥 Out: hanging out with your friends</div>
-                    <div class="option-btn" data-q="1" data-correct="true"><span class="option-marker">B</span>🏎️ Go somewhere loud and fast</div>
-                    <div class="option-btn" data-q="1" data-correct="false"><span class="option-marker">C</span>🏠 Home: playing with Briella</div>
-                    <div class="option-btn" data-q="1" data-correct="false"><span class="option-marker">D</span>💰 Market: count all the $ in the drawer</div>
-                </div>
-                <div class="feedback-area" id="feedback1"></div>
-                <div class="wrong-counter" id="wrong1"></div>
-            </div>
-
-            <!-- Question 2 -->
-            <div class="question-panel hidden" id="question2">
-                <div class="q-number"><span>02</span> / 05</div>
-                <div class="q-text">Which sound makes you happy?</div>
-                <div class="options-grid">
-                    <div class="option-btn" data-q="2" data-correct="true"><span class="option-marker">A</span>🔊 A loud engine roaring</div>
-                    <div class="option-btn" data-q="2" data-correct="false"><span class="option-marker">B</span>👶 Briella laughing or pretending she's coughing</div>
-                    <div class="option-btn" data-q="2" data-correct="false"><span class="option-marker">C</span>📞 Mario market's phone ringing</div>
-                    <div class="option-btn" data-q="2" data-correct="false"><span class="option-marker">D</span>🎵 Me singing 'pretty little baby'</div>
-                </div>
-                <div class="feedback-area" id="feedback2"></div>
-                <div class="wrong-counter" id="wrong2"></div>
-            </div>
-
-            <!-- Question 3 -->
-            <div class="question-panel hidden" id="question3">
-                <div class="q-number"><span>03</span> / 05</div>
-                <div class="q-text">Which smell feels exciting rather than ordinary?</div>
-                <div class="options-grid">
-                    <div class="option-btn" data-q="3" data-correct="false"><span class="option-marker">A</span>🥖 Fresh bread from the mini-market</div>
-                    <div class="option-btn" data-q="3" data-correct="false"><span class="option-marker">B</span>🧴 Briella's shampoo</div>
-                    <div class="option-btn" data-q="3" data-correct="false"><span class="option-marker">C</span>🧺 Le chat laundry detergent</div>
-                    <div class="option-btn" data-q="3" data-correct="true"><span class="option-marker">D</span>🔥 Burnt rubber and fuel in the air</div>
-                </div>
-                <div class="feedback-area" id="feedback3"></div>
-                <div class="wrong-counter" id="wrong3"></div>
-            </div>
-
-            <!-- Question 4 -->
-            <div class="question-panel hidden" id="question4">
-                <div class="q-number"><span>04</span> / 05</div>
-                <div class="q-text">Which skill would make you feel like a hero?</div>
-                <div class="options-grid">
-                    <div class="option-btn" data-q="4" data-correct="false"><span class="option-marker">A</span>🧮 Memorizing the prices in the market perfectly</div>
-                    <div class="option-btn" data-q="4" data-correct="false"><span class="option-marker">B</span>😴 Putting Briella to sleep in under a minute</div>
-                    <div class="option-btn" data-q="4" data-correct="true"><span class="option-marker">C</span>🏎️ Controlling power and precision at high speed</div>
-                    <div class="option-btn" data-q="4" data-correct="false"><span class="option-marker">D</span>👕 Folding Briella's tiny clothes neatly</div>
-                </div>
-                <div class="feedback-area" id="feedback4"></div>
-                <div class="wrong-counter" id="wrong4"></div>
-            </div>
-
-            <!-- Question 5 -->
-            <div class="question-panel hidden" id="question5">
-                <div class="q-number"><span>05</span> / 05</div>
-                <div class="q-text">Which of these would make you forget everything else for a while?</div>
-                <div class="options-grid">
-                    <div class="option-btn" data-q="5" data-correct="true"><span class="option-marker">A</span>🏎️ Driving something fast and crazy</div>
-                    <div class="option-btn" data-q="5" data-correct="false"><span class="option-marker">B</span>💵 A busy day in the market with lots of money</div>
-                    <div class="option-btn" data-q="5" data-correct="false"><span class="option-marker">C</span>😴 Briella sleeping the whole night and letting you sleep as well (finally!)</div>
-                    <div class="option-btn" data-q="5" data-correct="false"><span class="option-marker">D</span>🥃 Drinking Arak with your friends</div>
-                </div>
-                <div class="feedback-area" id="feedback5"></div>
-                <div class="wrong-counter" id="wrong5"></div>
-            </div>
-
-            <!-- Final Panel with Yes/No buttons -->
-            <div class="final-panel" id="finalPanel">
-                <h2><span>🏁</span> FINISH LINE <span>🏁</span></h2>
-                <div style="font-size: 2.5rem; margin: 16px 0;">
-                    <i class="fas fa-heart" style="color: #FEBB12;"></i>
-                    <i class="fas fa-flag-checkered" style="color: #000;"></i>
-                    <i class="fas fa-heart" style="color: #FEBB12;"></i>
-                </div>
-                <p style="font-size: 1.3rem; font-weight: 600; margin-bottom: 8px;">Ready to race into another year with your forever co-driver?</p>
-                <p style="color: #666; margin: 8px 0 20px;">Try clicking 'No' if you dare 😉</p>
-                
-                <div class="rally-buttons">
-                    <button class="btn-primary" id="yesBtn"><i class="fas fa-check"></i> YES!</button>
-                    <button class="btn-secondary" id="noBtn">No</button>
-                </div>
-            </div>
-
-            <!-- Result Panel -->
-            <div class="result-panel" id="resultPanel">
-                <h3>Congratulations 🎊</h3>
-                <div class="finish-flags">
-                    <span>🏁</span> <i class="fas fa-heart" style="color: #FEBB12;"></i> <span>🏁</span>
-                </div>
-                <p>You have officially unlocked an experience involving speed, smoke, adrenaline, and zero calm behavior.</p>
-                <p>Get ready for tomorrow and wear something you don't mind smelling like victory ✌️ 😉</p>
-                <div style="margin-top: 20px; font-size: 1.8rem;">
-                    <i class="fas fa-trophy" style="color: #FEBB12;"></i>
-                    <i class="fas fa-heart" style="color: #000;"></i>
-                    <i class="fas fa-flag-checkered" style="color: #FEBB12;"></i>
-                </div>
-            </div>
-
-            <!-- Footer -->
-            <div class="footer">
-                <div class="footer-rally">
-                    <i class="fas fa-gas-pump"></i>
-                    <i class="fas fa-flag-checkered"></i>
-                    <i class="fas fa-trophy"></i>
-                </div>
-                <div>Powered by Digital Brain Lebanon - 2026 ©</div>
-                <div>🏎️ ⛽ 🏁</div>
+            <h1>Prom - 2026</h1>
+            <div class="grad-tag">
+                <i class="fas fa-tassel"></i> To Jennifer <i class="fas fa-tassel"></i>
             </div>
         </div>
+
+        <!-- progress -->
+        <div class="progress-area">
+            <div class="progress-meta">
+                <span>✦ progress</span>
+                <span id="progressCount">0/5</span>
+            </div>
+            <div class="progress-track">
+                <div class="progress-fill" id="progressFill"></div>
+            </div>
+        </div>
+
+        <!-- QUESTIONS 1-5 -->
+        <div class="question-container active" id="q1">
+            <div class="question-meta"><span class="q-num">01</span><span class="q-cat">✦ memories</span></div>
+            <div class="question-text">Which class did we become friends in?</div>
+            <div class="options-grid">
+                <div class="option-card" data-correct="false"><span class="opt-icon">🚍</span>Grade 9</div>
+                <div class="option-card" data-correct="true"><span class="opt-icon">📖</span>S1</div>
+                <div class="option-card" data-correct="false"><span class="opt-icon">🎓</span>Senior year</div>
+                <div class="option-card" data-correct="false"><span class="opt-icon">👶</span>Since childhood</div>
+            </div>
+            <div class="feedback" id="fb1"></div>
+            <div class="wrong-counter" id="wa1"></div>
+        </div>
+
+        <div class="question-container" id="q2">
+            <div class="question-meta"><span class="q-num">02</span><span class="q-cat">✦ memories</span></div>
+            <div class="question-text">Where did we usually sit together?</div>
+            <div class="options-grid">
+                <div class="option-card" data-correct="false"><span class="opt-icon">📚</span>In class</div>
+                <div class="option-card" data-correct="false"><span class="opt-icon">🌳</span>In the school yard</div>
+                <div class="option-card" data-correct="false"><span class="opt-icon">🚶</span>In the corridor</div>
+                <div class="option-card" data-correct="true"><span class="opt-icon">☕</span>At the cafeteria</div>
+            </div>
+            <div class="feedback" id="fb2"></div>
+            <div class="wrong-counter" id="wa2"></div>
+        </div>
+
+        <div class="question-container" id="q3">
+            <div class="question-meta"><span class="q-num">03</span><span class="q-cat">✦ memories</span></div>
+            <div class="question-text">Do you remember what I want to study in university?</div>
+            <div class="options-grid">
+                <div class="option-card" data-correct="false"><span class="opt-icon">💊</span>Medicine</div>
+                <div class="option-card" data-correct="false"><span class="opt-icon">🎨</span>Art</div>
+                <div class="option-card" data-correct="true"><span class="opt-icon">💰</span>Economy</div>
+                <div class="option-card" data-correct="false"><span class="opt-icon">💻</span>Engineer</div>
+            </div>
+            <div class="feedback" id="fb3"></div>
+            <div class="wrong-counter" id="wa3"></div>
+        </div>
+
+        <div class="question-container" id="q4">
+            <div class="question-meta"><span class="q-num">04</span><span class="q-cat">✦ memories</span></div>
+            <div class="question-text">How should we arrive at prom?</div>
+            <div class="options-grid">
+                <div class="option-card" data-correct="false"><span class="opt-icon">🚗</span>Vintage Car</div>
+                <div class="option-card" data-correct="true"><span class="opt-icon">🍾</span>Limo</div>
+                <div class="option-card" data-correct="false"><span class="opt-icon">🚖</span>Taxi</div>
+                <div class="option-card" data-correct="false"><span class="opt-icon">👯</span>With our friends</div>
+            </div>
+            <div class="feedback" id="fb4"></div>
+            <div class="wrong-counter" id="wa4"></div>
+        </div>
+
+        <div class="question-container" id="q5">
+            <div class="question-meta"><span class="q-num">05</span><span class="q-cat">✦ memories</span></div>
+            <div class="question-text">Where should we go after prom?</div>
+            <div class="options-grid">
+                <div class="option-card" data-correct="true"><span class="opt-icon">🍕</span>Late-night food</div>
+                <div class="option-card" data-correct="false"><span class="opt-icon">💃</span>Clubbing</div>
+                <div class="option-card" data-correct="false"><span class="opt-icon">😴</span>Go sleep</div>
+                <div class="option-card" data-correct="false"><span class="opt-icon">🌊</span>To the beach</div>
+            </div>
+            <div class="feedback" id="fb5"></div>
+            <div class="wrong-counter" id="wa5"></div>
+        </div>
+
+        <!-- SCRATCH SECTION - appears only after answering correctly -->
+        <div class="scratch-section" id="scratchSection">
+            <h2 style="font-family: 'Playfair Display'; color: #7a5d73; font-size: 2.4rem; width: 100%; text-align: center;">scratch to reveal</h2>
+            <p class="scratch-hint" style="width: 100%; text-align: center;"><i class="fas fa-hand-pointer"></i> scratch the graduation cap</p>
+            <div class="scratch-container" id="scratchContainer">
+                <!-- underlayer: hidden question -->
+                <div class="scratch-under">
+                    <div class="under-message">
+                        Will you be my<br>prom date?
+                        <!--<span>✨ scratch the hat ✨</span>-->
+                    </div>
+                </div>
+                <canvas id="scratchCanvas" width="500" height="500"></canvas>
+            </div>
+			
+            <div class="scratch-progress-wrap hidden">
+                <div class="scratch-progress-label"><span>scratch progress</span><span id="scratchPercent">0%</span></div>
+                <div class="scratch-progress-track"><div class="scratch-progress-fill" id="scratchProgressBar"></div></div>
+            </div>
+
+            <div class="post-scratch-buttons" id="postScratchButtons">
+                <div class="btn-pair">
+                    <button class="btn-classy btn-yes" id="yesBtn">yes</button>
+                    <button class="btn-classy btn-no" id="noBtn">no</button>
+                </div>
+                <p style="color: #c2a5b8; margin-top: 15px; text-align: center;">Try clicking 'No' if you dare... 😉</p>
+            </div>
+        </div>
+
+        <!-- RESULT SECTION -->
+        <div class="result-section" id="resultSection">
+            <div class="result-card">
+                <i class="fas fa-scroll" style="font-size: 4rem; color: #c2a5b8; margin-bottom: 20px;"></i>
+                <div class="result-title">AWESOME</div>
+				<div class="final-text">Let’s make it a night to remember!</div>
+                <div style="font-size: 1.5rem; margin: 0px 0; color: #5f4c59;">
+                    <i class="fas fa-calendar-alt"></i> may 16 · 8pm<br>
+                    <i class="fas fa-map-pin"></i> skyline terrace
+                </div>
+				<br>
+                <div class="result-title">Be ready...</div>
+            </div>
+        </div>
+
+        <footer>
+            <i class="fas fa-sparkle"></i>Powered by Digital Brain Lebanon - 2026 ©<i class="fas fa-sparkle"></i>
+        </footer>
     </div>
 
     <script>
         (function() {
-            // State
+            // Quiz data
             let currentQ = 1;
-            let correctCount = 0;
             let wrongAttempts = [0,0,0,0,0];
-            let answered = [false,false,false,false,false];
-            
-            // Custom wrong messages for each question
-            const wrongMessages = [
-                "", // index 0 unused
-                "Hmm… not crazy enough. Try again 😉",
-                "Cute, but this is louder than that. Try again 😏",
-                "Yum, smells nice… but this surprise is way more thrilling. Try again 😄",
-                "A heroic choice, but this one needs more speed and drama — try again!",
-                "Nice try, but this one is all about speed and fun. Try again 😉"
-            ];
-            
-            // DOM elements
-            const qPanels = [null,
-                document.getElementById('question1'),
-                document.getElementById('question2'),
-                document.getElementById('question3'),
-                document.getElementById('question4'),
-                document.getElementById('question5')
-            ];
-            const finalPanel = document.getElementById('finalPanel');
-            const resultPanel = document.getElementById('resultPanel');
-            const stageDisplay = document.getElementById('stageDisplay');
-            const scoreDisplay = document.getElementById('scoreDisplay');
-            const attemptsDisplay = document.getElementById('attemptsDisplay');
             const progressFill = document.getElementById('progressFill');
-            const progressPercent = document.getElementById('progressPercent');
-            
-            // Initially hide final and result panels, show question 1
-            finalPanel.style.display = 'none';
-            resultPanel.style.display = 'none';
-            
-            // Update UI
-            function updateStats() {
-                stageDisplay.innerText = `${currentQ > 5 ? 5 : currentQ}/5`;
-                scoreDisplay.innerText = correctCount;
-                const totalWrong = wrongAttempts.reduce((a,b) => a + b, 0);
-                attemptsDisplay.innerText = totalWrong;
-                
-                let percent = (Math.min(currentQ-1, 5) / 5) * 100;
-                if (currentQ > 5) percent = 100;
+            const progressCount = document.getElementById('progressCount');
+            const scratchSection = document.getElementById('scratchSection');
+            const resultSection = document.getElementById('resultSection');
+            const postButtons = document.getElementById('postScratchButtons');
+
+            function updateProgress() {
+                let percent = ((currentQ - 1) / 5) * 100;
+                if (currentQ === 6) percent = 100;
                 progressFill.style.width = percent + '%';
-                progressPercent.innerText = percent + '%';
+                progressCount.innerText = currentQ === 6 ? '5/5' : (currentQ-1)+'/5';
             }
-            
-            // Show question
+
             function showQuestion(num) {
-                // Hide all questions
-                for (let i = 1; i <= 5; i++) {
-                    if (qPanels[i]) qPanels[i].classList.add('hidden');
-                }
-                // Hide final panel and result panel when showing questions
-                finalPanel.style.display = 'none';
-                resultPanel.style.display = 'none';
-                
-                if (num >= 1 && num <= 5) {
-                    qPanels[num].classList.remove('hidden');
-                    currentQ = num;
-                }
-                updateStats();
+                document.querySelectorAll('.question-container').forEach(q => q.classList.remove('active'));
+                const n = document.getElementById(`q${num}`);
+                if (n) n.classList.add('active');
             }
-            
-            // Handle correct answer
-            function handleCorrect(qId, btn) {
-                if (answered[qId-1]) return;
-                
-                answered[qId-1] = true;
-                correctCount++;
-                
-                // Mark correct button
-                btn.classList.add('correct');
-                
-                // Show feedback
-                const fb = document.getElementById(`feedback${qId}`);
-                fb.innerHTML = '<i class="fas fa-check-circle" style="color: #000; font-size: 1.5rem;"></i> <span style="font-weight: 600;">Correct! Great driving!</span>';
-                
-                // Clear wrong counter
-                document.getElementById(`wrong${qId}`).innerHTML = '';
-                
-                // Disable all options for this question
-                const parent = qPanels[qId];
-                const options = parent.querySelectorAll('.option-btn');
-                options.forEach(opt => {
-                    opt.style.pointerEvents = 'none';
-                });
-                
-                // Move to next question or finish
-                setTimeout(() => {
-                    if (qId < 5) {
-                        showQuestion(qId + 1);
+
+            // ---------- SCRATCH WITH YOUR IMAGE (PERFECTLY CENTERED) ----------
+            function initScratch() {
+                const canvas = document.getElementById('scratchCanvas');
+                const ctx = canvas.getContext('2d');
+                const percentDisplay = document.getElementById('scratchPercent');
+                const progressBar = document.getElementById('scratchProgressBar');
+
+                canvas.width = 500;
+                canvas.height = 500;
+
+                // Load your image
+                const img = new Image();
+                // 🔴 UPDATE THIS PATH to where your image is located
+                // If image is in same folder as HTML file, use: '1.png'
+                // If in a subfolder, use: 'images/1.png' etc.
+                img.src = '/promposal/1.png'; // <-- CHANGE THIS TO YOUR CORRECT PATH
+
+                img.onload = function() {
+                    // Calculate dimensions to fit image on 500x500 canvas while maintaining aspect ratio
+                    const canvasWidth = 500;
+                    const canvasHeight = 500;
+                    
+                    // Get image dimensions
+                    const imgWidth = img.width;    // 1563px
+                    const imgHeight = img.height;  // 825px
+                    
+                    // Calculate scaling to fit within canvas
+                    const scale = Math.min(canvasWidth / imgWidth, canvasHeight / imgHeight) * 0.9; // 90% of max to leave some margin
+                    
+                    // Calculate scaled dimensions
+                    const scaledWidth = imgWidth * scale;
+                    const scaledHeight = imgHeight * scale;
+                    
+                    // Calculate position to center the image
+                    const x = (canvasWidth - scaledWidth) / 2;
+                    const y = (canvasHeight - scaledHeight) / 2;
+                    
+                    console.log('Image loaded:', imgWidth, 'x', imgHeight);
+                    console.log('Drawing at:', x, y, scaledWidth, scaledHeight);
+                    
+                    // Clear canvas first
+                    ctx.clearRect(0, 0, canvasWidth, canvasHeight);
+                    
+                    // Draw the image centered
+                    ctx.drawImage(img, x, y, scaledWidth, scaledHeight);
+                    
+                    // Optional: Add a subtle shadow for depth
+                    ctx.shadowColor = '#b38faa';
+                    ctx.shadowBlur = 12;
+                    ctx.drawImage(img, x, y, scaledWidth, scaledHeight);
+                    ctx.shadowBlur = 0;
+
+                    // Calculate initial non-transparent pixels for progress tracking
+                    const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+                    let nonTransparent = 0;
+                    for (let i = 3; i < imageData.data.length; i += 4) {
+                        if (imageData.data[i] > 10) nonTransparent++;
+                    }
+                    window.hatPixels = nonTransparent || 25000;
+                    
+                    // Reset scratch progress display
+                    percentDisplay.innerText = '0%';
+                    progressBar.style.width = '0%';
+                };
+
+                img.onerror = function() {
+                    console.error("Image failed to load. Check the file path.");
+                    // Draw a fallback so you can still test
+                    ctx.fillStyle = '#9a7f95';
+                    ctx.font = 'bold 60px "Font Awesome 6 Free"';
+                    ctx.fillStyle = '#7a5d73';
+                    ctx.fillText('🎓', 200, 250);
+                    ctx.fillText('Image not found', 120, 350);
+                };
+
+                function getScratchedPercent() {
+                    const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+                    let transparent = 0;
+                    // Sample pixels for performance
+                    for (let i = 3; i < imageData.data.length; i += 40) {
+                        if (imageData.data[i] === 0) transparent++;
+                    }
+                    const totalPixels = window.hatPixels || 25000;
+                    return Math.min(100, Math.round((transparent / (totalPixels / 10)) * 100));
+                }
+
+                function updateScratchUI() {
+                    const pct = getScratchedPercent();
+                    percentDisplay.innerText = pct + '%';
+                    progressBar.style.width = pct + '%';
+                    if (pct >= 55) postButtons.style.display = 'block';
+                }
+
+                // Scratching logic
+                let isScratching = false;
+                let lastX = 0, lastY = 0;
+
+                function scratch(x, y) {
+                    const rect = canvas.getBoundingClientRect();
+                    const scaleX = canvas.width / rect.width;
+                    const scaleY = canvas.height / rect.height;
+                    const canvasX = (x - rect.left) * scaleX;
+                    const canvasY = (y - rect.top) * scaleY;
+                    if (canvasX < 0 || canvasX > canvas.width || canvasY < 0 || canvasY > canvas.height) return;
+
+                    ctx.globalCompositeOperation = 'destination-out';
+                    const brush = 32;
+
+                    if (lastX && lastY) {
+                        const steps = Math.ceil(Math.hypot(canvasX - lastX, canvasY - lastY) / 5);
+                        for (let i = 0; i <= steps; i++) {
+                            const t = i / steps;
+                            const cx = lastX + (canvasX - lastX) * t;
+                            const cy = lastY + (canvasY - lastY) * t;
+                            ctx.beginPath();
+                            ctx.arc(cx, cy, brush / 2, 0, 2 * Math.PI);
+                            ctx.fill();
+                        }
                     } else {
-                        // All questions done - hide all questions and show final panel
-                        for (let i = 1; i <= 5; i++) {
-                            if (qPanels[i]) qPanels[i].classList.add('hidden');
-                        }
-                        // Show final panel using style.display, not classList
-                        finalPanel.style.display = 'block';
-                        resultPanel.style.display = 'none';
-                        currentQ = 6;
-                        updateStats();
-                        createConfetti();
-                        
-                        // Reset no button position
-                        const noBtn = document.getElementById('noBtn');
-                        if (noBtn) {
-                            resetNoButtonPosition(noBtn);
-                        }
-                        
-                        console.log('Final panel should be visible now');
+                        ctx.beginPath();
+                        ctx.arc(canvasX, canvasY, brush / 2, 0, 2 * Math.PI);
+                        ctx.fill();
                     }
-                }, 1000);
+                    lastX = canvasX;
+                    lastY = canvasY;
+                    updateScratchUI();
+                }
+
+                const container = document.getElementById('scratchContainer');
+
+                function start(e) {
+                    e.preventDefault();
+                    isScratching = true;
+                    lastX = null;
+                    const clientX = e.clientX || (e.touches && e.touches[0].clientX);
+                    const clientY = e.clientY || (e.touches && e.touches[0].clientY);
+                    if (clientX && clientY) scratch(clientX, clientY);
+                }
+
+                function move(e) {
+                    if (!isScratching) return;
+                    e.preventDefault();
+                    const clientX = e.clientX || (e.touches && e.touches[0].clientX);
+                    const clientY = e.clientY || (e.touches && e.touches[0].clientY);
+                    if (clientX && clientY) scratch(clientX, clientY);
+                }
+
+                function stop() {
+                    isScratching = false;
+                    lastX = null;
+                }
+
+                container.addEventListener('mousedown', start);
+                container.addEventListener('touchstart', start, { passive: false });
+                window.addEventListener('mousemove', move);
+                window.addEventListener('touchmove', move, { passive: false });
+                window.addEventListener('mouseup', stop);
+                window.addEventListener('touchend', stop);
             }
-            
-            // Reset No button to centered position
-            function resetNoButtonPosition(noBtn) {
-                noBtn.style.position = 'relative';
-                noBtn.style.left = '0';
-                noBtn.style.top = '0';
-                noBtn.style.transform = 'none';
-                noBtn.style.transition = 'none';
-                noBtn.style.zIndex = '5';
-            }
-            
-            // Move No button randomly on the screen - ALWAYS moves when called
-            function moveNoButtonRandomly(button) {
-                // Change to fixed position to move anywhere
-                button.style.position = 'fixed';
-                button.style.zIndex = '9999';
-                
-                const viewportWidth = window.innerWidth;
-                const viewportHeight = window.innerHeight;
-                const buttonWidth = button.offsetWidth;
-                const buttonHeight = button.offsetHeight;
-                
-                // Calculate safe area (keep button fully visible)
-                const maxX = viewportWidth - buttonWidth - 20;
-                const maxY = viewportHeight - buttonHeight - 20;
-                
-                // Get current position
-                const currentX = parseInt(button.style.left) || (viewportWidth/2 - buttonWidth/2);
-                const currentY = parseInt(button.style.top) || (viewportHeight/2 - buttonHeight/2);
-                
-                // Generate new position far from current position
-                let newX, newY;
-                let attempts = 0;
-                const minDistance = 150; // Minimum distance to move
-                
-                do {
-                    newX = Math.random() * maxX;
-                    newY = Math.random() * maxY;
-                    attempts++;
-                    
-                    // Calculate distance from current position
-                    const distance = Math.sqrt(Math.pow(newX - currentX, 2) + Math.pow(newY - currentY, 2));
-                    
-                    // Accept position if it's far enough or we've tried too many times
-                    if (distance >= minDistance || attempts > 20) {
-                        break;
+
+            // option click handler
+            document.querySelectorAll('.option-card').forEach(card => {
+                card.addEventListener('click', function() {
+                    const container = this.closest('.question-container');
+                    if (!container) return;
+                    const qId = container.id;
+                    const qNum = parseInt(qId.substring(1));
+                    if (container.querySelector('.option-card.correct')) return;
+
+                    const isCorrect = this.getAttribute('data-correct') === 'true';
+                    const fb = document.getElementById(`fb${qNum}`);
+                    const wa = document.getElementById(`wa${qNum}`);
+
+                    if (isCorrect) {
+                        this.classList.add('correct');
+                        fb.innerHTML = '<div class="feedback-badge"><i class="fas fa-check-circle" style="color:#a87aa0;"></i> lovely!</div>';
+                        setTimeout(() => {
+                            if (qNum < 5) {
+                                currentQ = qNum + 1;
+                                showQuestion(currentQ);
+                                updateProgress();
+                            } else {
+                                // ALL QUESTIONS ANSWERED CORRECTLY - Show scratch section
+                                document.querySelectorAll('.question-container').forEach(c => c.classList.remove('active'));
+                                
+                                // Make sure scratch section is visible
+                                scratchSection.style.display = 'flex';
+                                
+                                // Update progress to 100%
+                                currentQ = 6;
+                                updateProgress();
+                                
+                                // Initialize the scratch canvas with your image
+                                initScratch();
+                            }
+                        }, 600);
+                    } else {
+                        this.classList.add('wrong');
+                        wrongAttempts[qNum-1]++;
+                        const tries = wrongAttempts[qNum-1];
+                        let msg = 'try again';
+                        if (tries === 2) msg = 'not yet';
+                        else if (tries === 3) msg = 'almost';
+                        else if (tries >= 4) msg = `keep going (${tries})`;
+                        wa.innerText = msg;
+                        fb.innerHTML = '<div class="feedback-badge"><i class="fas fa-times-circle" style="color:#b57e8a;"></i>Try again</div>';
+                        setTimeout(() => {
+                            this.classList.remove('wrong');
+                            fb.innerHTML = '';
+                        }, 500);
                     }
-                } while (true);
-                
-                // Apply position with fast transition
-                button.style.transition = 'all 0.1s ease-out';
-                button.style.left = `${newX}px`;
-                button.style.top = `${newY}px`;
-                
-                // Add shake effect
-                button.classList.add('shake');
-                setTimeout(() => {
-                    button.classList.remove('shake');
-                }, 500);
-                
-                // Prevent any default actions
-                return false;
-            }
-            
-            // Handle wrong answer
-            function handleWrong(qId, btn) {
-                if (answered[qId-1]) return;
-                
-                wrongAttempts[qId-1]++;
-                
-                // Show wrong visual
-                btn.classList.add('wrong');
-                
-                // Update wrong counter with attempt number
-                const wrongEl = document.getElementById(`wrong${qId}`);
-                const count = wrongAttempts[qId-1];
-                let attemptMessage = '';
-                if (count === 1) attemptMessage = '💪 first try';
-                else if (count === 2) attemptMessage = '⚡ second go';
-                else if (count === 3) attemptMessage = '🏁 third time';
-                else attemptMessage = `❤️ attempt #${count}`;
-                wrongEl.innerHTML = attemptMessage + ' <i class="fas fa-redo-alt"></i>';
-                
-                // Show custom wrong message in feedback
-                const fb = document.getElementById(`feedback${qId}`);
-                fb.innerHTML = '<i class="fas fa-times-circle" style="color: #ff4444; font-size: 1.5rem;"></i> <span style="color: #cc0000;">' + wrongMessages[qId] + '</span>';
-                fb.classList.add('shake');
-                
-                setTimeout(() => {
-                    btn.classList.remove('wrong');
-                    fb.innerHTML = '';
-                    fb.classList.remove('shake');
-                }, 1500); // Longer timeout so the custom message can be read
-                
-                updateStats();
-            }
-            
-            // Option click handler - optimized for touch
-            function setupOptions() {
-                document.querySelectorAll('.option-btn').forEach(btn => {
-                    btn.addEventListener('click', function(e) {
-                        e.preventDefault();
-                        
-                        const qId = parseInt(this.dataset.q);
-                        
-                        // If already answered correctly, ignore
-                        if (answered[qId-1]) return;
-                        
-                        const isCorrect = this.dataset.correct === 'true';
-                        
-                        if (isCorrect) {
-                            handleCorrect(qId, this);
-                        } else {
-                            handleWrong(qId, this);
-                        }
-                    });
-                    
-                    // Touch optimization
-                    btn.addEventListener('touchstart', function(e) {
-                        // Just to ensure touch works, no need to prevent default
-                    }, { passive: true });
                 });
-            }
-            
-            // No button runaway - updated to match second code exactly
+            });
+
+            // yes button
+            document.addEventListener('click', (e) => {
+                if (e.target.id === 'yesBtn') {
+                    scratchSection.style.display = 'none';
+                    resultSection.style.display = 'block';
+                    createConfetti(80);
+                }
+            });
+
+            // no button runaway
             const noBtn = document.getElementById('noBtn');
             if (noBtn) {
-                // Start with normal position
-                resetNoButtonPosition(noBtn);
-                
-                // Add multiple event listeners to catch ALL interactions
-                noBtn.addEventListener('mousedown', function(e) {
-                    e.preventDefault();
-                    if (finalPanel.style.display !== 'block') return;
-                    moveNoButtonRandomly(noBtn);
-                });
-                
-                noBtn.addEventListener('touchstart', function(e) {
-                    e.preventDefault();
-                    if (finalPanel.style.display !== 'block') return;
-                    moveNoButtonRandomly(noBtn);
-                }, { passive: false });
-                
-                noBtn.addEventListener('mouseover', function(e) {
-                    if (finalPanel.style.display !== 'block') return;
-                    moveNoButtonRandomly(noBtn);
-                });
-                
-                noBtn.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    if (finalPanel.style.display !== 'block') return;
-                    moveNoButtonRandomly(noBtn);
-                });
-                
-                // Also move on touchmove to catch any touch interaction
-                noBtn.addEventListener('touchmove', function(e) {
-                    e.preventDefault();
-                    if (finalPanel.style.display !== 'block') return;
-                    moveNoButtonRandomly(noBtn);
-                }, { passive: false });
+                const runNo = (btn, ev) => {
+                    if (ev) { ev.preventDefault(); ev.stopPropagation(); }
+                    const w = window.innerWidth;
+                    const h = window.innerHeight;
+                    const rect = btn.getBoundingClientRect();
+                    const maxX = w - rect.width - 30;
+                    const maxY = h - rect.height - 30;
+                    const newX = 20 + Math.random() * (maxX - 20);
+                    const newY = 20 + Math.random() * (maxY - 20);
+                    btn.style.position = 'fixed';
+                    btn.style.left = newX + 'px';
+                    btn.style.top = newY + 'px';
+                    btn.style.transition = 'left 0.15s, top 0.15s';
+                    btn.style.zIndex = 9999;
+                };
+                noBtn.addEventListener('mouseenter', (e) => runNo(noBtn, e));
+                noBtn.addEventListener('touchstart', (e) => { e.preventDefault(); runNo(noBtn, e); }, { passive: false });
+                noBtn.addEventListener('click', (e) => { e.preventDefault(); runNo(noBtn, e); });
             }
-            
-            // Yes button
-            document.getElementById('yesBtn').addEventListener('click', function(e) {
-                e.preventDefault();
-                finalPanel.style.display = 'none';
-                resultPanel.style.display = 'block';
-                createConfetti(true);
-            });
-            
-            // Confetti - optimized
-            function createConfetti(more = false) {
-                const container = document.querySelector('.container');
-                const count = more ? 60 : 30;
-                
+
+            function createConfetti(count) {
                 for (let i = 0; i < count; i++) {
-                    setTimeout(() => {
-                        const conf = document.createElement('div');
-                        conf.className = 'confetti';
-                        conf.style.backgroundColor = ['#FEBB12', '#000', '#ffffff', '#FEBB12'][Math.floor(Math.random() * 4)];
-                        conf.style.left = Math.random() * 100 + '%';
-                        conf.style.width = (5 + Math.random() * 10) + 'px';
-                        conf.style.height = conf.style.width;
-                        conf.style.borderRadius = Math.random() > 0.5 ? '50%' : '2px';
-                        conf.style.top = '-20px';
-                        conf.style.opacity = '1';
-                        conf.style.zIndex = '1000';
-                        container.appendChild(conf);
-                        
-                        const duration = 1000 + Math.random() * 1500;
-                        const xMove = (Math.random() - 0.5) * 80;
-                        
-                        conf.animate([
-                            { transform: 'translateY(0) rotate(0deg)', opacity: 1 },
-                            { transform: `translateY(${250 + Math.random() * 250}px) translateX(${xMove}px) rotate(${Math.random() * 360}deg)`, opacity: 0 }
-                        ], {
-                            duration: duration,
-                            easing: 'cubic-bezier(0.25, 0.1, 0.25, 1)'
-                        }).onfinish = () => conf.remove();
-                    }, i * 20);
+                    const c = document.createElement('div');
+                    c.style.position = 'fixed';
+                    c.style.width = (Math.random() * 12 + 6) + 'px';
+                    c.style.height = c.style.width;
+                    c.style.background = `hsl(${Math.random() * 40 + 280}, 70%, 80%)`;
+                    c.style.borderRadius = '50%';
+                    c.style.left = Math.random() * 100 + '%';
+                    c.style.top = '-20px';
+                    c.style.zIndex = 9999;
+                    c.style.pointerEvents = 'none';
+                    document.body.appendChild(c);
+                    const anim = c.animate([
+                        { transform: 'translateY(0) rotate(0deg)', opacity: 1 },
+                        { transform: `translate(${(Math.random() - 0.5) * 250}px, ${window.innerHeight + 150}px) rotate(${Math.random() * 360}deg)`, opacity: 0 }
+                    ], { duration: 2500 + Math.random() * 1500 });
+                    anim.onfinish = () => c.remove();
                 }
             }
-            
-            // Handle window resize
-            window.addEventListener('resize', function() {
-                if (finalPanel.style.display === 'block') {
-                    const noBtn = document.getElementById('noBtn');
-                    if (noBtn) {
-                        // Keep button on screen if it's currently fixed
-                        const currentLeft = parseInt(noBtn.style.left);
-                        const currentTop = parseInt(noBtn.style.top);
-                        const viewportWidth = window.innerWidth;
-                        const viewportHeight = window.innerHeight;
-                        const buttonWidth = noBtn.offsetWidth;
-                        const buttonHeight = noBtn.offsetHeight;
-                        
-                        // Adjust position if button is off-screen
-                        if (currentLeft > viewportWidth - buttonWidth) {
-                            noBtn.style.left = `${viewportWidth - buttonWidth - 20}px`;
-                        }
-                        if (currentTop > viewportHeight - buttonHeight) {
-                            noBtn.style.top = `${viewportHeight - buttonHeight - 20}px`;
-                        }
-                    }
-                }
-            });
-            
-            // Initialize - make sure we start with question 1 visible
-            showQuestion(1);
-            
-            // Setup options after initialization
-            setupOptions();
-            updateStats();
-            
-            console.log('Initialization complete');
+
+            updateProgress();
         })();
     </script>
 </body>
